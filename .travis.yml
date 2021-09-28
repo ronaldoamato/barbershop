@@ -38,3 +38,5 @@ after_success:
   - docker push thileal/barbearia:$TRAVIS_BUILD_NUMBER
   - bash scripts/update-kube.sh
   - bash scripts/deploy.sh || travis_terminate 1;
+  
+  #testing
