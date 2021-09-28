@@ -1,0 +1,40 @@
+language: node_js
+node_js: "stable"
+
+sudo: required
+
+notifications:
+  slack: compasso-teamunipampa:CDcSiVTRXCUTsGYrNujZSgdl
+
+git:
+  depth: false
+
+branches:
+  only:
+    - master
+services:
+  - docker
+
+before_install:
+  - curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+  - chmod +x kubectl && sudo mv kubectl /usr/local/bin/kubectl
+  - npm update
+
+install:
+  - npm install
+
+addons:
+  sonarcloud:
+    organization: "teamunipampa"
+    token: $SONAR_TOKEN
+
+script:
+  - npm test
+  - sonar-scanner -Dsonar.projectVersion=$TRAVIS_BUILD_NUMBER
+
+after_success:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
+  - docker build -f docker/barbearia.dockerfile -t thileal/barbearia:$TRAVIS_BUILD_NUMBER .
+  - docker push thileal/barbearia:$TRAVIS_BUILD_NUMBER
+  - bash scripts/update-kube.sh
+  - bash scripts/deploy.sh || travis_terminate 1;
