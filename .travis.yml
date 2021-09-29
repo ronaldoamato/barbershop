@@ -23,14 +23,14 @@ before_install:
 install:
   - npm install
 
-#addons:
-  #sonarcloud:
-    #organization: "teamunipampa"
-    #token: $SONAR_TOKEN
+addons:
+  sonarcloud:
+    organization: "ronaldoamato-sonarcloud"
+    token: $SONAR_TOKEN
 
 script:
   - npm test
-  #- sonar-scanner -Dsonar.projectVersion=$TRAVIS_BUILD_NUMBER
+  - sonar-scanner -Dsonar.projectVersion=$TRAVIS_BUILD_NUMBER
 
 after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
