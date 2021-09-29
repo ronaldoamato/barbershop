@@ -3,9 +3,6 @@ node_js: "stable"
 
 sudo: required
 
-#notifications:
-  #slack: compasso-teamunipampa:CDcSiVTRXCUTsGYrNujZSgdl
-
 git:
   depth: false
 
