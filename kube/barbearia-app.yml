@@ -27,7 +27,8 @@ spec:
         app: barbearia
     spec:
       containers:
-        - name: barbearia-container
+        #- name: barbearia-container
+         - name: barbearia
           image: ronaldoamato/barbearia:latest
           envFrom:
             - configMapRef:
