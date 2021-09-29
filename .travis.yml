@@ -39,5 +39,3 @@ after_success:
   - bash scripts/update-kube.sh
   - bash scripts/deploy.sh || travis_terminate 1;
   
-  
-#TESTE
