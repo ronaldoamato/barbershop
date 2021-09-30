@@ -17,7 +17,7 @@ describe("Test app responses", () => {
   test("It should response the GET method on /produtos path", async () => {
     const response = await request(app).get("/produtos");
 
-    expect(response.text.includes('Na tesoura ou máquina, como o cliente preferir')).toBe(true);
+    expect(response.text.includes('Na tesoura ou máquina, como o cliente preferir')).toBe(false);
     expect(response.text.includes('Corte e desenho profissional de barba')).toBe(true);
     expect(response.text.includes('Pacote completo de cabelo e barba')).toBe(true);
     expect(response.statusCode).toBe(200);
